@@ -113,9 +113,9 @@ Only the player who survives a round gets to add their score for
 
     try:
         for word in args:
-            if l1key is not None and isinstance(l2key, basestring):
+            if l1key is not None and isinstance(l2key, str):
                 configitem = configconfig[l1key][l2key]
-                if isinstance(configitem, basestring):
+                if isinstance(configitem, str):
                     raise ValueError('Can\'t accept other options after "%s %s"' % (l1key, l2key))
                 value = configitem[convert](word)
                 if configitem[choices] is None or value in configitem[choices]:
@@ -132,15 +132,15 @@ Only the player who survives a round gets to add their score for
                 raise ValueError('Unknown option "%s"' % word)
 
         if l1key == "help":
-            print configconfig[l1key][l2key or None]
+            print(configconfig[l1key][l2key or None])
             sys.exit()
         elif l2key is False:
             raise ValueError('No sub-option passed for option group "%s"' % l1key)
         elif l2key is not None:
             raise ValueError('No value passed for option "%s %s"' % (l1key, l2key))
     except ValueError as e:
-        print configconfig['help']['options']
-        print e
+        print(configconfig['help']['options'])
+        print(e)
         sys.exit()
 
     return config
@@ -191,7 +191,7 @@ keys = {
 class player(object):
     def __init__(self, game, side, color):
         self.game = game
-	self.side = side
+        self.side = side
         self.color = color
         self.gamescore = 0
 
@@ -221,7 +221,7 @@ class game(object):
             self.boardbounds = ((0,16), (23,62))
 
         self.boardsize = (self.boardbounds[1][0] - self.boardbounds[0][0] - 1,
-                          (self.boardbounds[1][1] - self.boardbounds[0][1]) / 2 - 1)
+                          (self.boardbounds[1][1] - self.boardbounds[0][1]) // 2 - 1)
 
         self.offset = (self.boardbounds[0][0] + 1, self.boardbounds[0][1] + 1)
 
